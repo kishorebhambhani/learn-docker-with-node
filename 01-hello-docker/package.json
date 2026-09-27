@@ -1,0 +1,21 @@
+{
+  "name": "learn-docker-with-node",
+  "version": "1.0.0",
+  "description": "Staged, hands-on Docker learning path for Node.js developers",
+  "homepage": "https://github.com/kishorebhambhani/learn-docker-with-node#readme",
+  "bugs": {
+    "url": "https://github.com/kishorebhambhani/learn-docker-with-node/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kishorebhambhani/learn-docker-with-node.git"
+  },
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "license": "MIT"
+}
