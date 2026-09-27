@@ -41,13 +41,19 @@ you can't tell which without backtracking to this exact test anyway.
 ## Now containerize it
 
 ```bash
-# Build the image (creates a snapshot called "hello-docker"). <.> refers Dockerfile
-docker build -t hello-docker .
+# Build the image (creates a snapshot called "hello-docker-01").
+docker build -t hello-docker-01 .
 
 # Run a container from that image, mapping container port 8000
 # to port 8000 on your own machine
-docker run -p 8000:8000 hello-docker
+docker run -p 8000:8000 hello-docker-01
 ```
+
+The left port is on your machine; the right port is inside the container.
+If host port `8000` is already in use, use another host port, for example
+`docker run -p 8001:8000 hello-docker-01`, and open
+`http://localhost:8001/`. The app still listens on port `8000` inside the
+container.
 
 Then in another terminal:
 
@@ -55,6 +61,7 @@ Then in another terminal:
 curl http://localhost:8000/
 # {"message":"Hello from inside a Docker container!"}
 ```
+If you used host port `8001`, use `curl http://localhost:8001/` instead.
 
 Stop it with `Ctrl+C`, or find and stop it from another terminal:
 
@@ -66,11 +73,11 @@ docker stop <container_id_or_name>
 ## Run Container with Custom Container Name
 
 ```bash
-# Run the container with specific name using image hello-docker
-docker run -p 8000:8000 --name container-node-app hello-docker
+# Run the container with specific name using image hello-docker-01
+docker run -p 8000:8000 --name container-node-app hello-docker-01
 
-# Run another container with a different PORT environment variable using the hello-docker image
-docker run -p 4000:4000 -e PORT=4000 --name container-node-app-4000 hello-docker
+# Run another container with a different PORT environment variable
+docker run -p 4000:4000 -e PORT=4000 --name container-node-app-4000 hello-docker-01
 ```
 ## Things worth noticing
 
@@ -96,16 +103,34 @@ docker stop <container_id_or_name>
 # Remove Container
 docker rm <container_id_or_name>
 # Build Image after code changes
-docker build -t hello-docker .
+docker build -t hello-docker-01 .
 # Run the Container
-docker run -p 8000:8000 --name container-node-app hello-docker
+docker run -p 8000:8000 --name container-node-app hello-docker-01
+```
+
+## Clean up when finished
+
+Stopping a container frees its port, but leaves the stopped container on
+your machine. Remove it when you no longer need it:
+
+```bash
+docker ps -a                    # find the container ID or name
+docker stop <container_id_or_name> # only if it is still running
+docker rm <container_id_or_name>
+```
+
+Removing the image is optional; you can keep `hello-docker-01` for later.
+If you do want to remove it, remove containers created from it first:
+
+```bash
+docker rmi hello-docker-01
 ```
 
 ## Viewing Images & Containers in Docker Desktop
 
 Instead of using CLI commands, you can also view and manage everything visually in Docker Desktop:
 
-- **Images tab** - see all built images (including `hello-docker`), their size, and creation date. You can also delete images from here.
+- **Images tab** - see all built images (including `hello-docker-01`), their size, and creation date. You can also delete images from here.
 - **Containers tab** - see running and stopped containers, their status, port mappings, and logs. You can start, stop, restart, or delete a container with a single click.
 - Click on a container to view **live logs** - useful for seeing the same output you'd get from `docker logs <container_name>`, without needing the terminal.
 

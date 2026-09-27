@@ -107,9 +107,17 @@ docker rmi <image>                          # remove an image (remove its contai
 docker logs <container_id_or_name>          # view a container's output
 ```
 
-Stage-specific commands (`build`, `run`, `push`, `pull`, `compose up`,
-etc.) are documented in each stage's own README, alongside why they're
-used at that point.
+Registry commands introduced in stage 2:
+
+```bash
+docker login [registry]                                             # authenticate with Docker Hub or another registry
+docker tag <image> <registry>/<namespace>/<repository>:<tag>         # add a registry-qualified name to an image
+docker push <registry>/<namespace>/<repository>:<tag>                # upload an image to a registry
+docker pull <registry>/<namespace>/<repository>:<tag>                # download an image from a registry
+```
+
+Each stage's README covers its command sequence, options, and examples,
+including `build`, `run`, and `compose up`.
 
 ## Contribute
 

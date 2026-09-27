@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 app.get('/', (req, res) => {
-  res.json({ message: 'Hello from inside a Docker container!' });
+  res.json({ message: 'Hello from inside a Docker container! - 02-push-pull-registry' });
 });
 
 app.listen(PORT, () => {
