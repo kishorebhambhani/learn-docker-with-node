@@ -65,6 +65,24 @@ node -v
 npm -v
 ```
 
+## Structue
+
+```bash
+learn-docker-with-node/
+├── README.md                       # top-level map: what this repo is, how to use it, link to each stage
+├── LICENSE
+├── .github/
+│   ├── pull_request_template.md
+│   ├── CODEOWNER
+│
+├── 01-hello-docker/
+│   ├── README.md                   # what's new in this stage + why
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── package-lock.json
+│   └── main.js
+```
+
 ## General Docker commands reference
 
 These apply across every stage, regardless of what's being taught:
