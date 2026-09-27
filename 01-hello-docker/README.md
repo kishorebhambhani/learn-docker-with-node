@@ -69,7 +69,7 @@ docker stop <container_id_or_name>
 # Run the container with specific name using image hello-docker
 docker run -p 8000:8000 --name container-node-app hello-docker
 
-# Run another container using a different PORT environment variable uisng mage hello-docker
+# Run another container with a different PORT environment variable using the hello-docker image
 docker run -p 4000:4000 -e PORT=4000 --name container-node-app-4000 hello-docker
 ```
 ## Things worth noticing
@@ -94,7 +94,7 @@ docker run -p 4000:4000 -e PORT=4000 --name container-node-app-4000 hello-docker
 # Stop Container
 docker stop <container_id_or_name>
 # Remove Container
-`docker rm <container_id_or_name>`
+docker rm <container_id_or_name>
 # Build Image after code changes
 docker build -t hello-docker .
 # Run the Container
@@ -111,5 +111,5 @@ Instead of using CLI commands, you can also view and manage everything visually 
 
 ## Next stage
 
-`02-push-pull-registry`(coming soon) - take this same
+[`02-push-pull-registry`](../02-push-pull-registry) - take this same
 image and share it with the outside world via a registry.
