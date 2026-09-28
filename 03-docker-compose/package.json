@@ -1,0 +1,13 @@
+{
+  "name": "03-docker-compose",
+  "version": "1.0.0",
+  "description": "Stage 3: run the Stage 1 app with Docker Compose instead of docker run flags",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
