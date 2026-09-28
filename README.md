@@ -20,7 +20,7 @@ through them in order is recommended if you're new to this.
 ```
 learn-docker-with-node/
 ├── 01-hello-docker/          # image basics: build, run
-├── 02-push-pull-registry/    # (coming soon) sharing images via a registry
+├── 02-push-pull-registry/    # sharing images via a registry
 ├── 03-docker-compose/        # (coming soon)
 ├── 04-multi-env-compose/     # (coming soon)
 ├── 05-cicd-github-actions/   # (coming soon)
@@ -28,17 +28,17 @@ learn-docker-with-node/
 └── README.md                 # you are here
 ```
 
-Within a stage folder, expect: `Dockerfile`, the app code
-(`main.js`, `package.json`), and a `README.md` explaining what's new
-in that stage and exactly how to run it - that's where the actual
-test/run instructions live, not here.
+Within a stage folder, expect: `.dockerignore`, `Dockerfile`, the app
+code (`main.js`, `package.json`, and `package-lock.json`), and a
+`README.md` explaining what's new in that stage and exactly how to run
+it - that's where the actual test/run instructions live, not here.
 
 ## What's covered
 
 | Stage | Folder | What it teaches |
 |---|---|---|
 | 1 | [`01-hello-docker`](01-hello-docker) | Building an image, running a container |
-| 2 | `02-push-pull-registry`*(coming soon)* | Pushing/pulling images via a registry (Docker Hub) |
+| 2 | [`02-push-pull-registry`](02-push-pull-registry) | Pushing/pulling images via a registry (Docker Hub) |
 | 3 | `03-docker-compose` *(coming soon)* | Replacing `docker run` flags with a compose file |
 | 4 | `04-multi-env-compose` *(coming soon)* | Local vs. prod config via compose overrides |
 | 5 | `05-cicd-github-actions` *(coming soon)* | Automating build + push on every commit |
@@ -65,18 +65,27 @@ node -v
 npm -v
 ```
 
-## Structue
+## Structure
 
 ```bash
 learn-docker-with-node/
 ├── README.md                       # top-level map: what this repo is, how to use it, link to each stage
 ├── LICENSE
+├── .gitignore
 ├── .github/
 │   ├── pull_request_template.md
-│   ├── CODEOWNER
+│   └── CODEOWNERS
 │
 ├── 01-hello-docker/
 │   ├── README.md                   # what's new in this stage + why
+│   ├── .dockerignore
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── package-lock.json
+│   └── main.js
+├── 02-push-pull-registry/
+│   ├── README.md                   # what's new in this stage + why
+│   ├── .dockerignore
 │   ├── Dockerfile
 │   ├── package.json
 │   ├── package-lock.json
@@ -98,9 +107,17 @@ docker rmi <image>                          # remove an image (remove its contai
 docker logs <container_id_or_name>          # view a container's output
 ```
 
-Stage-specific commands (`build`, `run`, `push`, `pull`, `compose up`,
-etc.) are documented in each stage's own README, alongside why they're
-used at that point.
+Registry commands introduced in stage 2:
+
+```bash
+docker login [registry]                                             # authenticate with Docker Hub or another registry
+docker tag <image> <registry>/<namespace>/<repository>:<tag>         # add a registry-qualified name to an image
+docker push <registry>/<namespace>/<repository>:<tag>                # upload an image to a registry
+docker pull <registry>/<namespace>/<repository>:<tag>                # download an image from a registry
+```
+
+Each stage's README covers its command sequence, options, and examples,
+including `build`, `run`, and `compose up`.
 
 ## Contribute
 
