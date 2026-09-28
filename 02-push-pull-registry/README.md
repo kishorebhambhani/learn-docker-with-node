@@ -53,6 +53,20 @@ You can publish multiple version tags for the same repository, making
 it clear which build to pull instead of relying on a changeable `latest`
 tag.
 
+Tags are mutable: pushing a different image to the same tag, such as
+`0.0.1`, moves that tag to the new image. Anyone pulling `0.0.1` afterward
+will get the new image, not the earlier one. To keep a published version
+available under its original name, give the changed image a new version
+tag and push that instead. For example, after rebuilding a changed image:
+
+```bash
+docker tag hello-docker-02 yourusername/hello-docker:0.0.2
+docker push yourusername/hello-docker:0.0.2
+```
+
+Use a new version tag for each release you want to keep addressable; do
+not push a changed build to an existing version tag.
+
 The tagged image appears in Docker Desktop under the Images tab as
 `yourusername/hello-docker`.
 
