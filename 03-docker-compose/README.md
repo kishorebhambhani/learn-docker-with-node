@@ -59,6 +59,12 @@ Expected response:
 { "message": "Hello from inside a Docker container! - 03-docker-compose" }
 ```
 
+When `docker compose up` is running in the foreground, press `Ctrl+C`
+in that same terminal tab or window to stop the services. Then run
+`docker compose down` to remove the containers and network. If you used
+`docker compose up -d`, the command has already returned, so use
+`docker compose down` to stop and remove the services instead of `Ctrl+C`.
+
 ## Compose commands used in this stage
 
 ```bash
@@ -70,6 +76,14 @@ docker compose down        # stop and remove the container(s) started by this fi
 docker compose ps          # list containers managed by this compose file
 docker compose logs -f     # follow logs from all services
 ```
+
+When you start the project, Compose also creates a default network, so
+you may see a `Network ... Created` message even though this stage has
+only one service. You do not need to configure that network here. The
+port mapping above lets your machine reach the app; a Compose network
+lets services in the project reach one another. In Stage 4, the app will
+use that network to communicate with Redis by its service name. That
+stage covers the networking details.
 
 Notice you never typed an image name or `--name` — Compose derives those
 names from the project and service names. With this folder name and the

@@ -8,8 +8,6 @@
 services:
   app:
     build: .
-    image: 03-docker-compose:dev
-    container_name: 03-docker-compose-app
     ports:
       - "8000:8000"
     environment:
