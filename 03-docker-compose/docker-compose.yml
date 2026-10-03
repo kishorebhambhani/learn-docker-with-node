@@ -1,0 +1,14 @@
+# This file replaces commands like:
+#   docker build -t docker-node-image .
+#   docker run -p 8000:8000 -e PORT=8000 --name app docker-node-image
+#
+# ...with one declarative file and one command: `docker compose up`.
+# Same app, same image — just fewer flags to remember and retype.
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000

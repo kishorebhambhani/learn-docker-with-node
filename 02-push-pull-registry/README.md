@@ -135,5 +135,6 @@ docker rm <container_id_or_name>
 
 ## Next stage
 
-`03-docker-compose` *(coming soon)* - replace the long `docker run`
-command with a single config file.
+[`03-docker-compose`](../03-docker-compose) - learn Compose as an
+alternative way to configure and run the local app from stage 1. It is a
+separate concept from this stage's registry push/pull workflow.
