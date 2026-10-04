@@ -110,9 +110,11 @@ curl http://localhost:8000/
 
 ## Stop and clean up
 
-Stop the container with `Ctrl+C` in the terminal running it, or find it
-and stop it from another terminal. Removing the container frees its host
-port; the image can stay on your machine for reuse.
+For a foreground `docker run`, press `Ctrl+C` in the same terminal tab
+or window running it to stop the container. If it is running in the
+background, stop it from another terminal instead. Removing the
+container frees its host port; the image can stay on your machine for
+reuse.
 
 ```bash
 docker ps -a                    # find the container ID or name

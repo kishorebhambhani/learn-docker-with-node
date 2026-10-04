@@ -1,0 +1,22 @@
+{
+  "name": "04-multi-container-compose",
+  "version": "1.0.0",
+  "description": "Stage 4: connect the app to Redis through Compose service-name networking",
+  "homepage": "https://github.com/kishorebhambhani/learn-docker-with-node#readme",
+  "bugs": {
+    "url": "https://github.com/kishorebhambhani/learn-docker-with-node/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kishorebhambhani/learn-docker-with-node.git"
+  },
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.2.1",
+    "redis": "^5.12.1"
+  }
+}

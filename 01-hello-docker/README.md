@@ -21,16 +21,17 @@ npm install
 node main.js
 ```
 
-Then in another terminal:
+Then, in another terminal, verify the response:
 
 ```bash
 curl http://localhost:8000/
 # {"message":"Hello from inside a Docker container!"}
 ```
-Or
-Open Browser and paste http://localhost:8000/ in address bar.
+Alternatively, open `http://localhost:8000/` in your browser.
 
-Stop it with `Ctrl+C` on terminal.
+In the same terminal tab or window where you ran `node main.js`, press
+`Ctrl+C` to stop the local server. This is a keyboard shortcut, not a
+command to type.
 
 **Why bother with this step?** If something breaks later, once Docker
 is involved, you want to already know your *code* is fine - so any
@@ -63,14 +64,16 @@ curl http://localhost:8000/
 ```
 If you used host port `8001`, use `curl http://localhost:8001/` instead.
 
-Stop it with `Ctrl+C`, or find and stop it from another terminal:
+For this foreground `docker run`, press `Ctrl+C` in the same terminal
+tab or window to stop the container. Or find and stop it from another
+terminal:
 
 ```bash
 docker ps                    # find the container ID or name
 docker stop <container_id_or_name>
 ```
 
-## Run Container with Custom Container Name
+## Run a Container with a Custom Name
 
 ```bash
 # Run the container with specific name using image hello-docker-01
@@ -95,7 +98,7 @@ docker run -p 4000:4000 -e PORT=4000 --name container-node-app-4000 hello-docker
   price of isolation, and it's exactly why later stages introduce
   volumes and compose.
 
-## How to change code if Container already running at Stage 1
+## Update the Code While a Stage 1 Container Is Running
 
 ```bash
 # Stop Container
