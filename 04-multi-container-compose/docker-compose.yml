@@ -1,0 +1,29 @@
+# Two services, one Compose file.
+#
+# Compose automatically puts both services on the same private network.
+# On that network, each service can reach the other using its SERVICE NAME
+# as a hostname: the app talks to Redis at "redis", because the service
+# below is called "redis".
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      # The value is the service name defined further down — not an IP
+      # address, and not "localhost".
+      - REDIS_HOST=redis
+    # Start the Redis container before the app container.
+    # (This only controls start ORDER; it doesn't wait for Redis to be
+    # ready. The app tolerates that by retrying its connection.)
+    depends_on:
+      - redis
+
+  redis:
+    # An official image straight from Docker Hub — no Dockerfile needed.
+    image: redis:7-alpine
+    # Note: there is no "ports" section. Redis is reachable from the app
+    # over the Compose network, but not from your own machine. Only the
+    # app needs to be public.

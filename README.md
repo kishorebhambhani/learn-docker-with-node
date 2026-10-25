@@ -12,17 +12,18 @@ want a structured refresher. No prior Docker knowledge assumed.
 ## How this repo is organized
 
 Each stage lives in its own numbered folder and is **fully
-self-contained** - its own Dockerfile, app code, and README. You can
+self-contained**, with its own Dockerfile, app code, and README. You can
 open any single folder and run it without needing anything from the
 others. The stages are numbered in a recommended learning order, though
 not every stage depends on the previous stage's workflow. Each stage
-introduces one new concept, so nothing is bundled together.
+introduces one new concept at a time.
 
 ```
 learn-docker-with-node/
 ├── 01-hello-docker/            # image basics: build, run
 ├── 02-push-pull-registry/      # sharing images via a registry
 ├── 03-docker-compose/          # Compose syntax: docker run flags → docker-compose.yml
+├── 04-multi-container-compose/ # connect the app to Redis with Compose networking
 └── README.md                   # you are here
 ```
 
@@ -37,13 +38,13 @@ The stage READMEs contain the actual test/run instructions.
 |---|---|---|
 | 1 | [`01-hello-docker`](01-hello-docker) | Building an image, running a container |
 | 2 | [`02-push-pull-registry`](02-push-pull-registry) | Pushing/pulling images via a registry (Docker Hub) |
-| 3 | [`03-docker-compose`](03-docker-compose) | Run the Stage 1 app with Compose instead of a `docker run` command |
-| 4 | `04-multi-container-compose` *(coming soon)* | Add a second service and connect services by name |
-| 5 | `05-bind-mounts` *(coming soon)* | Mount local code into a container for live edits |
-| 6 | `06-multi-env-compose` *(coming soon)* | Configure local and production Compose environments |
-| 7 | `07-persistent-volumes` *(coming soon)* | Keep application data in named volumes |
-| 8 | `08-cicd-github-actions` *(coming soon)* | Automate image builds and pushes with GitHub Actions |
-| 9 | `09-azure-acr` *(coming soon)* | Publish and pull images with Azure Container Registry |
+| 3 | [`03-docker-compose`](03-docker-compose) | Run the Stage 1 app with Compose, building the image locally |
+| 4 | [`04-multi-container-compose`](04-multi-container-compose) | Connect the app to a Redis service using Compose service-name networking |
+| 5 | `05-bind-mounts` *(coming soon)* | Mount local code into a container for live development edits |
+| 6 | `06-multi-env-compose` *(coming soon)* | Configure development and production Compose setups: build locally for development, run a tagged image in production |
+| 7 | `07-persistent-volumes` *(coming soon)* | Use a named volume to keep PostgreSQL data when its container is recreated |
+| 8 | `08-cicd-github-actions` *(coming soon)* | Build and push images to Docker Hub automatically with GitHub Actions |
+| 9 | `09-azure-acr` *(coming soon)* | Publish and pull images with Azure Container Registry, a private registry |
 
 ## Pre-requisites
 
@@ -65,6 +66,20 @@ docker -v
 node -v
 npm -v
 ```
+
+## Terminal and Ctrl+C
+
+Run the commands in a terminal opened in the stage folder. You can use
+the VS Code integrated terminal with PowerShell selected, or a separate
+PowerShell window. The `bash` labels on command blocks are for formatting;
+the Docker commands shown here also work in PowerShell.
+
+When a command is still running in the foreground, press `Ctrl+C` in
+that same terminal tab or window to interrupt it. For example, it stops
+the local Node.js server or an attached `docker run`/`docker compose up`.
+`Ctrl+C` is a keyboard shortcut, not a command to type. It does not stop
+a container started in the background with `-d`; use `docker stop` or
+`docker compose down` for those.
 
 ## Structure
 
@@ -91,14 +106,22 @@ learn-docker-with-node/
 │   ├── package.json
 │   ├── package-lock.json
 │   └── main.js
-└── 03-docker-compose/
-    ├── README.md
-    ├── .dockerignore
-    ├── Dockerfile
-    ├── docker-compose.yml
-    ├── package.json
-    ├── package-lock.json
-    └── main.js
+├── 03-docker-compose/
+│   ├── README.md
+│   ├── .dockerignore
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   ├── package.json
+│   ├── package-lock.json
+│   └── main.js
+├── 04-multi-container-compose/
+│   ├── README.md
+│   ├── .dockerignore
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   ├── package.json
+│   ├── package-lock.json
+│   └── main.js
 ```
 
 ## General Docker commands reference
