@@ -23,6 +23,7 @@ learn-docker-with-node/
 ├── 01-hello-docker/            # image basics: build, run
 ├── 02-push-pull-registry/      # sharing images via a registry
 ├── 03-docker-compose/          # Compose syntax: docker run flags → docker-compose.yml
+├── 04-multi-container-compose/ # connect the app to Redis with Compose networking
 └── README.md                   # you are here
 ```
 

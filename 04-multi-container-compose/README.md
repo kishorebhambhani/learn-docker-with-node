@@ -176,11 +176,15 @@ docker compose up --build
 In another terminal, call the app a few times:
 
 ```bash
-curl http://localhost:8000/
+curl.exe http://localhost:8000/
 # {"message":"Hello from inside a Docker container! - 04-multi-container-compose","visits":1}
-curl http://localhost:8000/
+curl.exe http://localhost:8000/
 # ... "visits":2
 ```
+
+In Windows PowerShell 5.1, `curl` is an alias for `Invoke-WebRequest` and may
+show a script-execution warning. Use `curl.exe` in PowerShell 5.1 or 7+ to run
+the native curl executable directly.
 
 Each response increases `visits`, proving the app reached Redis.
 
@@ -223,5 +227,5 @@ docker network ls                       # see the network Compose created
 
 ## What's next
 
-[`05-bind-mounts`](../05-bind-mounts) - stop rebuilding the image every time
-you edit your code, by mounting your local files into the container.
+Stage 5 (coming soon): bind mounts - stop rebuilding the image every time
+you edit your code by mounting your local files into the container.

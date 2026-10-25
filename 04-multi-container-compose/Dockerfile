@@ -2,7 +2,7 @@
 # Nothing about the image changes in this stage. The new idea lives in
 # docker-compose.yml: a second service (Redis) and how the two find each other.
 
-FROM node:18-slim
+FROM node:24-slim
 
 WORKDIR /app
 
