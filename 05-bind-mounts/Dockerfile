@@ -3,7 +3,7 @@
 # instead of baking main.js into the image and rebuilding after every edit,
 # we mount your local code into the running container.
 
-FROM node:18-slim
+FROM node:24-slim
 
 WORKDIR /app
 

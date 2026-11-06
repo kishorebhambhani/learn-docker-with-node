@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
   // Try it: change this message while the container is running and save
   // the file. With the bind mount in docker-compose.yml, the change shows
   // up without rebuilding the image.
-  res.json({ message: 'Hello from inside a Docker container! - 05-bind-mounts - Test 2' });
+  res.json({ message: 'Hello from inside a Docker container! - 05-bind-mounts' });
 });
 
 app.listen(PORT, () => {

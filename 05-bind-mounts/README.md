@@ -77,6 +77,16 @@ If you want to validate the app logic without Docker Desktop, the app itself
 still runs locally after `npm install`:
 
 ```bash
+# bash / zsh
+cd 05-bind-mounts
+npm install
+PORT=8000 node main.js
+curl http://localhost:8000/
+# {"message":"Hello from inside a Docker container! - 05-bind-mounts"}
+```
+
+```powershell
+# PowerShell
 cd 05-bind-mounts
 npm install
 $env:PORT = "8000"
