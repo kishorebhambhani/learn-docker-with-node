@@ -25,7 +25,8 @@ learn-docker-with-node/
 ├── 03-docker-compose/          # Compose syntax: docker run flags → docker-compose.yml
 ├── 04-multi-container-compose/ # connect the app to Redis with Compose networking
 ├── 05-bind-mounts/             # mount local code for live development edits
-└── README.md                   # you are here
+├── 06-multi-env-compose/       # separate development and production Compose files
+├── README.md                   # you are here
 ```
 
 Each stage has a `.dockerignore`, `Dockerfile`, app code (`main.js`,
@@ -43,7 +44,7 @@ instructions.
 | 3 | [`03-docker-compose`](03-docker-compose) | Run the Stage 1 app with Compose, building the image locally |
 | 4 | [`04-multi-container-compose`](04-multi-container-compose) | Connect the app to a Redis service using Compose service-name networking |
 | 5 | [`05-bind-mounts`](05-bind-mounts) | Mount local code into a container for live development edits with a bind mount and `nodemon` |
-| 6 | `06-multi-env-compose` *(coming soon)* | Configure development and production Compose setups: build locally for development, run a tagged image in production |
+| 6 | [`06-multi-env-compose`](06-multi-env-compose) | Configure development and production Compose setups: build locally for development, run a tagged image in production |
 | 7 | `07-persistent-volumes` *(coming soon)* | Use a named volume to keep PostgreSQL data when its container is recreated |
 | 8 | `08-cicd-github-actions` *(coming soon)* | Build and push images to Docker Hub automatically with GitHub Actions |
 | 9 | `09-azure-acr` *(coming soon)* | Publish and pull images with Azure Container Registry, a private registry |
@@ -131,6 +132,16 @@ learn-docker-with-node/
 │   ├── .dockerignore
 │   ├── Dockerfile
 │   ├── docker-compose.yml
+│   ├── package.json
+│   ├── package-lock.json
+│   └── main.js
+├── 06-multi-env-compose/
+│   ├── README.md
+│   ├── .dockerignore
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   ├── docker-compose.override.yml
+│   ├── docker-compose.prod.yml
 │   ├── package.json
 │   ├── package-lock.json
 │   └── main.js

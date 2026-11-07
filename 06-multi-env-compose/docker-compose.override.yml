@@ -1,0 +1,21 @@
+# DEVELOPMENT settings.
+#
+# Compose reads this file automatically, on top of docker-compose.yml,
+# whenever you run a plain `docker compose up`. No -f flags needed.
+# It adds everything a developer needs: build locally, mount code, restart
+# on change.
+
+services:
+  app:
+    build:
+      context: .
+      args:
+        # Install devDependencies (nodemon) in the image.
+        NODE_ENV: development
+    command: npm run dev
+    environment:
+      - NODE_ENV=development
+    volumes:
+      # Bind mount from stage 5, so edits show up without a rebuild.
+      - .:/app
+      - /app/node_modules

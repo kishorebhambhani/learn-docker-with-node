@@ -1,0 +1,15 @@
+# PRODUCTION settings.
+#
+# Not read automatically. You choose it explicitly:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#
+# No "build" here. Production pulls an image that already exists in a
+# registry — the one you pushed in stage 2 — so the server never needs
+# your source code. Replace "yourusername" with your Docker Hub username.
+
+services:
+  app:
+    image: yourusername/hello-docker:0.0.1
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
