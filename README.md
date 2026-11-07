@@ -24,13 +24,15 @@ learn-docker-with-node/
 ├── 02-push-pull-registry/      # sharing images via a registry
 ├── 03-docker-compose/          # Compose syntax: docker run flags → docker-compose.yml
 ├── 04-multi-container-compose/ # connect the app to Redis with Compose networking
+├── 05-bind-mounts/             # mount local code for live development edits
 └── README.md                   # you are here
 ```
 
 Each stage has a `.dockerignore`, `Dockerfile`, app code (`main.js`,
 `package.json`, and `package-lock.json`), and a `README.md` explaining
-what's new and how to run it. Stage 3 also has a `docker-compose.yml`.
-The stage READMEs contain the actual test/run instructions.
+what's new and how to run it. Stages 3 onward also have a
+`docker-compose.yml`. The stage READMEs contain the actual test/run
+instructions.
 
 ## Roadmap
 
@@ -40,7 +42,7 @@ The stage READMEs contain the actual test/run instructions.
 | 2 | [`02-push-pull-registry`](02-push-pull-registry) | Pushing/pulling images via a registry (Docker Hub) |
 | 3 | [`03-docker-compose`](03-docker-compose) | Run the Stage 1 app with Compose, building the image locally |
 | 4 | [`04-multi-container-compose`](04-multi-container-compose) | Connect the app to a Redis service using Compose service-name networking |
-| 5 | `05-bind-mounts` *(coming soon)* | Mount local code into a container for live development edits |
+| 5 | [`05-bind-mounts`](05-bind-mounts) | Mount local code into a container for live development edits with a bind mount and `nodemon` |
 | 6 | `06-multi-env-compose` *(coming soon)* | Configure development and production Compose setups: build locally for development, run a tagged image in production |
 | 7 | `07-persistent-volumes` *(coming soon)* | Use a named volume to keep PostgreSQL data when its container is recreated |
 | 8 | `08-cicd-github-actions` *(coming soon)* | Build and push images to Docker Hub automatically with GitHub Actions |
@@ -54,7 +56,9 @@ The stage READMEs contain the actual test/run instructions.
   daemon is not running`.
 - **Node.js** (v18+) and **npm** - [Download](https://nodejs.org/).
   Needed for a stage's optional local verification step, but not
-  required to build or run any app in a container.
+  required to build or run any app in a container. The bind-mount stage
+  can be checked locally with `npm install` and `node main.js` to confirm
+  the HTTP response before or after using Docker Compose.
 - A free [Docker Hub](https://hub.docker.com/) account - needed for
   stage 2. Later stages may use Docker Hub, another registry, or Azure
   Container Registry.
@@ -115,6 +119,14 @@ learn-docker-with-node/
 │   ├── package-lock.json
 │   └── main.js
 ├── 04-multi-container-compose/
+│   ├── README.md
+│   ├── .dockerignore
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   ├── package.json
+│   ├── package-lock.json
+│   └── main.js
+├── 05-bind-mounts/
 │   ├── README.md
 │   ├── .dockerignore
 │   ├── Dockerfile

@@ -1,0 +1,25 @@
+# Stage 5: bind mounts.
+#
+# A bind mount connects a folder on YOUR machine to a folder inside the
+# container. Both sides see the same files, so when you save a change in
+# your editor, the running container sees it immediately.
+
+services:
+  app:
+    build: .
+    # Run nodemon (see package.json) instead of plain "node main.js".
+    # nodemon restarts the app whenever a file changes.
+    command: npm run dev
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+    volumes:
+      # Bind mount: <folder on your machine>:<folder in the container>
+      # "." means "the folder containing this file".
+      - .:/app
+      # Gotcha: the line above also covers /app/node_modules inside the
+      # container with whatever is on your machine (nothing, or modules
+      # built for your OS). This second entry reserves /app/node_modules
+      # for the container's own copy, installed during the image build.
+      - /app/node_modules

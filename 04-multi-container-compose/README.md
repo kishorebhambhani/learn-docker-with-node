@@ -227,5 +227,5 @@ docker network ls                       # see the network Compose created
 
 ## What's next
 
-Stage 5 (coming soon): bind mounts - stop rebuilding the image every time
+[`05-bind-mounts`](../05-bind-mounts): bind mounts - stop rebuilding the image every time
 you edit your code by mounting your local files into the container.

@@ -1,0 +1,25 @@
+{
+  "name": "05-bind-mounts",
+  "version": "1.0.0",
+  "description": "Stage 5: bind-mount local code into a container for live development edits",
+  "homepage": "https://github.com/kishorebhambhani/learn-docker-with-node#readme",
+  "bugs": {
+    "url": "https://github.com/kishorebhambhani/learn-docker-with-node/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kishorebhambhani/learn-docker-with-node.git"
+  },
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "dev": "nodemon -L main.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
