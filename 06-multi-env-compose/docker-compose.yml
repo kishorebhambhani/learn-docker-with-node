@@ -1,0 +1,12 @@
+# BASE file: only what is the same in every environment.
+#
+# Notice what is missing: neither "build" nor "image". The base file
+# doesn't say WHERE the image comes from — each environment decides that.
+# That is why this file does not run on its own.
+
+services:
+  app:
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
