@@ -105,6 +105,15 @@ curl http://localhost:8000/
 # {"message":"Hello from inside a Docker container! - 05-bind-mounts (edited)"}
 ```
 
+`localhost:8000` is your machine's side of the `8000:8000` port mapping;
+Docker forwards that request to port 8000 in the container. The app is
+still running in the container, not as a local Node process. The bind mount
+(`.:/app`) makes the folder on your machine, including the edited `main.js`,
+visible at `/app` in the container. `nodemon` notices the saved change and
+restarts Node there, so the next request to localhost returns the updated
+response. Stage 6 reuses this same development behavior through its
+`docker-compose.override.yml`.
+
 No `docker build`. No new container. Change the message back when done.
 
 Stop with `Ctrl+C`, then:

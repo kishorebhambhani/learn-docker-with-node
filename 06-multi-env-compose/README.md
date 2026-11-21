@@ -25,6 +25,30 @@ was already built and pushed to a registry, as in stage 2.
 The base file has neither `build` nor `image` - each environment decides
 where the image comes from - so it cannot run alone.
 
+## Why use different images?
+
+During development, Compose builds an image from this folder so you can
+work on this chapter's source. The bind mount then makes your working files
+available inside the running container. For production, Compose uses the
+versioned image published to Docker Hub in stage 2 (pulling it if it is not
+already available locally). That image is a known, deployable build; the
+production machine does not need this source folder or a build toolchain.
+It also means edits to this folder do not change production until you build
+and publish a new image tag, then update the production Compose file.
+
+## What the override file does
+
+When you run `docker compose up` in this folder without `-f`, Compose reads
+`docker-compose.yml` and automatically merges in
+`docker-compose.override.yml`. The override adds the development-only
+settings: build from this folder, run `nodemon`, set `NODE_ENV` to
+`development`, and bind-mount the folder into `/app`.
+
+The production command names its files explicitly with `-f`. In that mode,
+Compose uses only the listed base and production files; it does not also
+load the development override. So production gets the registry `image`,
+without the local build, bind mount, or `nodemon` command.
+
 ## Prerequisites
 
 - **Docker Desktop** - must be running before any `docker` command.
@@ -47,17 +71,37 @@ curl http://localhost:8000/
 # {"message":"Hello from inside a Docker container! - 06-multi-env-compose","environment":"development"}
 ```
 
-Edit `main.js` while it is running and the change appears, as in stage 5.
-Stop with `Ctrl+C`, then `docker compose down`.
+The `8000:8000` port mapping connects your machine's port 8000 to port 8000
+in the container, so `http://localhost:8000/` still reaches the containerized
+app. The `.:/app` bind mount makes this chapter's folder (including
+`main.js`) visible inside the container. When you save an edit, `nodemon`
+detects it and restarts the app; the next request to localhost reaches that
+restarted app and shows the edit. This is the same development loop
+introduced in stage 5, now supplied by the development override.
+
+For a direct comparison, temporarily change the `message` in `main.js` and
+request `http://localhost:8000/` again. The response now reflects your local
+edit. Stop with `Ctrl+C`, then run `docker compose down` before switching to
+production.
 
 ## How to test: production
 
+Before continuing, complete [stage 2's build, push, and run steps](../02-push-pull-registry#try-it).
+Confirm that the pushed image responds at `http://localhost:8000/`, then
+stop its container to free port 8000. Stage 6 uses that same published tag;
+having only a local image is not enough if the tag has not been pushed.
+
 Open `docker-compose.prod.yml` and replace `yourusername` with your Docker
-Hub username. Then name both files explicitly:
+Hub username. Then explicitly pull the published image and start production:
 
 ```bash
+docker compose -f docker-compose.yml -f docker-compose.prod.yml pull
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 ```
+
+The pull comes from Docker Hub, so a local copy of the stage 2 image is not
+required. If the image is missing locally, `up` also pulls it automatically;
+the explicit `pull` here makes that production source visible in the demo.
 
 ```bash
 curl http://localhost:8000/
@@ -65,9 +109,12 @@ curl http://localhost:8000/
 ```
 
 The response comes from the **stage 2 image** - this folder's `main.js` was
-never built or used. That is the point: production runs the exact image you
-published. Editing `main.js` here changes nothing in production until you
-build, tag and push a new version.
+never built or mounted into the container. That is the point: production
+runs the image you published, rather than your in-progress working copy.
+The message remains the stage 2 version even though you edited this folder's
+`main.js`: production has no bind mount and does not build from this source.
+To deploy a change, build and push a new version, then update the image tag
+in `docker-compose.prod.yml`.
 
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.prod.yml down
